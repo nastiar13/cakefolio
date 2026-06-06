@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: cakefolio-app
+    restart: unless-stopped
+    networks:
+      - traefik-proxy
+    labels:
+      - "traefik.enable=true"
+      
+      # HTTPS Routing
+      - "traefik.http.routers.cakefolio.rule=Host(`cakefolio.mitrabisnisdigital.com`)"
+      - "traefik.http.routers.cakefolio.entrypoints=websecure"
+      - "traefik.http.routers.cakefolio.tls=true"
+      # If your global Traefik uses a specific cert resolver, uncomment and change the name below:
+      # - "traefik.http.routers.cakefolio.tls.certresolver=letsencrypt"
+      
+      # Map to the Nginx port inside the container
+      - "traefik.http.services.cakefolio.loadbalancer.server.port=80"
+
+networks:
+  traefik-proxy:
+    external: true
