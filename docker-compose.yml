@@ -15,7 +15,7 @@ services:
       - "traefik.http.routers.cakefolio.entrypoints=websecure"
       - "traefik.http.routers.cakefolio.tls=true"
       # If your global Traefik uses a specific cert resolver, ensure the name matches (e.g., 'letsencrypt' or 'myresolver'):
-      - "traefik.http.routers.cakefolio.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.cakefolio.tls.certresolver=myresolver"
       
       # Map to the Nginx port inside the container
       - "traefik.http.services.cakefolio.loadbalancer.server.port=80"
